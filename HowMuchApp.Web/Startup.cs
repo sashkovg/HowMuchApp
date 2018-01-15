@@ -7,6 +7,13 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.SpaServices.Webpack;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using HowMuchApp.Bll;
+using HowMuchApp.Dal;
+using HowMuchApp.Model.EF;
+using Microsoft.EntityFrameworkCore;
+using HowMuchApp.Model.Models;
+using Microsoft.AspNetCore.Identity;
+using AutoMapper;
 
 namespace HowMuchApp_Web
 {
@@ -22,7 +29,35 @@ namespace HowMuchApp_Web
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddDbContext<ApplicationContext>(options =>
+                  options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection"), b => b.MigrationsAssembly("HowMuchApp.Web")));
+
+            // configure identity (user and role  model)
+            services.AddIdentity<AppUser, IdentityRole>(o =>
+            {
+                // configure identity options
+                o.Password.RequireDigit = false;
+                o.Password.RequireLowercase = false;
+                o.Password.RequireUppercase = false;
+                o.Password.RequireNonAlphanumeric = false;
+                o.Password.RequiredLength = 6;
+            }).AddEntityFrameworkStores<ApplicationContext>();
+
+            RegistrationDependencies(services);
+
+            services.AddAutoMapper();
+
             services.AddMvc();
+        }
+
+        /// <summary>
+        ///  Dependencies injection
+        /// </summary>
+        /// <param name="services"></param>
+        private void RegistrationDependencies(IServiceCollection services)
+        {
+            services.AddTransient<IBllFactory, BllFactory>();
+            services.AddTransient<IDalFactory, DalFactory>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -43,6 +78,8 @@ namespace HowMuchApp_Web
 
             app.UseStaticFiles();
 
+            // set middleware
+            app.UseAuthentication();
             app.UseMvc(routes =>
             {
                 routes.MapRoute(

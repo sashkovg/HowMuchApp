@@ -1,0 +1,42 @@
+﻿<div class="login-page" [@routerTransition]>
+   
+    <div class="row justify-content-md-center">
+        <div class="col-md-4">
+            <img src="../../images/logo.png" width="100" class="user-avatar" />
+            <h3>HowMuch. Авторизация</h3>
+            <div class="row justify-content-md-center" style="margin-top:15px">
+                <div class="col-md-10 new-user-alert">
+                    <div *ngIf="brandNew" class="alert alert-success" role="alert">
+                        <strong>Регистрация прошла успешно!</strong> Пожалуйста, войдите в приложение, используя Email зарегистрированного аккаунта
+                    </div>
+                </div>
+            </div>
+            <form #f="ngForm" role="form" [formGroup]='loginForm' novalidate (ngSubmit)="login(loginForm)" autocomplete=off>
+                <div class="form-content">
+                    <div class="form-group">
+                        <input type="text" name="email" class="form-control input-underline input-lg" id="email" placeholder="Email" formControlName='email'>
+                        <div *ngIf="!loginForm.controls['email'].valid && (!loginForm.controls['email'].pristine || f.submitted)">
+                            <small *ngIf="loginForm.controls['email'].hasError('required')" class="error">
+                                Введите Ваш Email.
+                            </small>
+                            <small *ngIf="loginForm.controls['email'].hasError('email') && !loginForm.controls['email'].pristine && !loginForm.controls['email'].hasError('required')" class="error">
+                                Формат введенного Email не соответствует маске (например, user@gmail.com)
+                            </small>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <input type="password" name="password" class="form-control input-underline input-lg"  id="password" placeholder="Пароль" formControlName='password'>
+                        <div *ngIf="!loginForm.controls['password'].valid && (!loginForm.controls['password'].pristine || f.submitted)">
+                            <small *ngIf="loginForm.controls['password'].hasError('required')" class="error">
+                                Введите Ваш пароль.
+                            </small>
+                        </div>
+                    </div>
+                </div>
+                <button class="btn rounded-btn" type="submit"> Войти </button>
+                &nbsp;
+                <a class="btn rounded-btn" [routerLink]="['/signup']">Регистрация</a>
+            </form>
+        </div>
+    </div>
+</div>s
