@@ -27,15 +27,11 @@ namespace HowMuchApp.Web.Migrations
 
                     b.Property<string>("Gender");
 
-                    b.Property<string>("IdentityId");
-
                     b.Property<string>("Locale");
 
                     b.Property<string>("Location");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("IdentityId");
 
                     b.ToTable("Customers");
                 });
@@ -197,13 +193,6 @@ namespace HowMuchApp.Web.Migrations
                     b.HasKey("UserId", "LoginProvider", "Name");
 
                     b.ToTable("AspNetUserTokens");
-                });
-
-            modelBuilder.Entity("HowMuchApp.Model.EF.Customer", b =>
-                {
-                    b.HasOne("HowMuchApp.Model.Models.AppUser", "Identity")
-                        .WithMany()
-                        .HasForeignKey("IdentityId");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>

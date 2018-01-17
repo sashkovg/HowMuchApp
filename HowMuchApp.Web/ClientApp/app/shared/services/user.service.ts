@@ -42,14 +42,14 @@ export class UserService extends BaseService {
             .catch(this.handleError);
     }
 
-    login(userName: string, password: string) {
+    login(email: string, password: string) {
         let headers = new Headers();
         headers.append('Content-Type', 'application/json');
 
         return this.http
             .post(
             this.baseUrl + '/accounts/Login',
-            JSON.stringify({ userName, password }), { headers }
+            JSON.stringify({ email, password }), { headers }
             )
             .map(res => res.json())
             .map(res => {

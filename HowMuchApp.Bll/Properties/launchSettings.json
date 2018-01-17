@@ -1,0 +1,10 @@
+{
+  "profiles": {
+    "HowMuchApp.Bll": {
+      "commandName": "Project",
+      "environmentVariables": {
+        "ASPNETCORE_ENVIRONMENT": "Development"
+      }
+    }
+  }
+}

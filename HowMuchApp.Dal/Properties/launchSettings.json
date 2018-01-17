@@ -1,0 +1,10 @@
+{
+  "profiles": {
+    "HowMuchApp.Dal": {
+      "commandName": "Project",
+      "environmentVariables": {
+        "ASPNETCORE_ENVIRONMENT ": "Development"
+      }
+    }
+  }
+}

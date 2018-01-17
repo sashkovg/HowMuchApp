@@ -10,5 +10,15 @@ namespace HowMuchApp.Model.EF
             : base(options)
         {
         }
+
+        public DbSet<Customer> Customers { get; set; }
+    }
+
+    public class Customer
+    {
+        public int Id { get; set; }
+        public string Location { get; set; }
+        public string Locale { get; set; }
+        public string Gender { get; set; }
     }
 }

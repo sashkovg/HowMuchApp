@@ -16,7 +16,7 @@ export class SignupComponent implements OnInit {
     constructor(private userService: UserService, public router: Router, public fb: FormBuilder) { 
         this.signupForm = this.fb.group({
             email: ['', Validators.compose([Validators.required, Validators.email])],
-            password: ['', [Validators.required]],
+            password: ['', Validators.compose([Validators.required])],
             confirmPassword: ['', [Validators.required]]
         })  
     }
@@ -40,6 +40,7 @@ export class SignupComponent implements OnInit {
                 .finally(() => this.isRequesting = false)
                 .subscribe(
                 result => {
+                    this.signupForm.reset();
                     if (result) {
                         this.router.navigate(['/login'], { queryParams: { brandNew: true, email: value.email } });
                     }

@@ -21,10 +21,12 @@
                     </div>
                     <div class="form-group">
                         <input type="password" name="password" class="form-control input-underline input-lg" id="password" formControlName='password' placeholder="Пароль">
-                        <div *ngIf="!signupForm.controls['password'].valid && (!signupForm.controls['password'].pristine || f.submitted)">
-                            <small *ngIf="signupForm.controls['password'].hasError('required')" class="error">
-                                Введите Ваш пароль.
-                            </small>
+                        <small *ngIf="signupForm.controls['password'].hasError('minLength')" class="error">
+                            Минимальная длина пароля должна составлять 6 символов
+                        </small>
+                        <div *ngIf="!signupForm.controls['password'].valid && (!signupForm.controls['password'].pristine )">
+
+                            
                         </div>
                         <small *ngFor="let error of errors | keys: 'password'" class="error">
                             {{error.value}}
@@ -38,7 +40,7 @@
                                 Подтвердите Ваш пароль.
                             </small>
                         </div>
-                        <small *ngFor="let error of errors | keys: 'confirmPassword'" class="error">
+                        <small *ngFor="let error of errors | keys: 'confirm'" class="error">
                             {{error.value}}
                         </small>
                     </div>
