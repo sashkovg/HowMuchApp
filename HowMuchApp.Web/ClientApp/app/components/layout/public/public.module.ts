@@ -7,6 +7,7 @@ import { SignupComponent} from '../../signup/signup.component';
 import { KeysPipe } from '../../../shared/pipes/keys.pipes';
 import { UserService } from '../../../shared/services/user.service';
 import { PublicComponent } from '../../../components/layout/public/public.component';
+
 @NgModule({
     imports: [
         CommonModule,

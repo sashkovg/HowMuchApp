@@ -202,6 +202,11 @@
         }
       }
     },
+    "@ngx-translate/core": {
+      "version": "9.1.1",
+      "resolved": "https://registry.npmjs.org/@ngx-translate/core/-/core-9.1.1.tgz",
+      "integrity": "sha1-rhA5KINrip4Gn9Li52+iGYzH5ig="
+    },
     "@types/chai": {
       "version": "4.1.0",
       "resolved": "https://registry.npmjs.org/@types/chai/-/chai-4.1.0.tgz",

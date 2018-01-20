@@ -1,55 +1,38 @@
-﻿<div class="login-page" [@routerTransition]>
-    <div class="row justify-content-md-center">
-        <div class="col-md-4">
-            <img src="../../images/logo.png" width="100" class="user-avatar" />
-            <h3>HowMuch. Регистрация</h3>
-            <form #f="ngForm" role="form" [formGroup]='signupForm' (ngSubmit)="registerUser(signupForm)" autocomplete=off>
-                <div class="form-content">
-                    <div class="form-group">
-                        <input type="text" class="form-control input-underline input-lg" id="email" name="email" formControlName='email' placeholder="Email">
-                        <div *ngIf="!signupForm.controls['email'].valid && (!signupForm.controls['email'].pristine || f.submitted)">
-                            <small *ngIf="signupForm.controls['email'].hasError('required')" class="error">
-                                Введите Ваш Email.
-                            </small>
-                            <small *ngIf="signupForm.controls['email'].hasError('email') && !signupForm.controls['email'].pristine && !signupForm.controls['email'].hasError('required')" class="error">
-                                Формат введенного Email не соответствует маске (например, user@gmail.com)
-                            </small>
-                        </div>
-                        <small *ngFor="let error of errors | keys: 'UserName'" class="error">
-                            {{error.value}}
-                        </small>
-                    </div>
-                    <div class="form-group">
-                        <input type="password" name="password" class="form-control input-underline input-lg" id="password" formControlName='password' placeholder="Пароль">
-                        <small *ngIf="signupForm.controls['password'].hasError('minLength')" class="error">
-                            Минимальная длина пароля должна составлять 6 символов
-                        </small>
-                        <div *ngIf="!signupForm.controls['password'].valid && (!signupForm.controls['password'].pristine )">
-
-                            
-                        </div>
-                        <small *ngFor="let error of errors | keys: 'password'" class="error">
-                            {{error.value}}
-                        </small>
-                    </div>
-                    <div class="form-group">
-                        <input type="password" name="confirmPassword" class="form-control input-underline input-lg" id="confirmPassword" formControlName='confirmPassword' placeholder="Повторите пароль">
-
-                        <div *ngIf="!signupForm.controls['confirmPassword'].valid && (!signupForm.controls['confirmPassword'].pristine || f.submitted)">
-                            <small *ngIf="signupForm.controls['confirmPassword'].hasError('required') " class="error">
-                                Подтвердите Ваш пароль.
-                            </small>
-                        </div>
-                        <small *ngFor="let error of errors | keys: 'confirm'" class="error">
-                            {{error.value}}
-                        </small>
-                    </div>
-                </div>
-                <button class="btn rounded-btn" type="submit"> Зарегистрироваться </button>&nbsp;
-                <a class="btn rounded-btn" [routerLink]="['/login']"> Войти </a>
-
-            </form>
+﻿<div class="row justify-content-md-center" [@routerTransition]>
+    <div class="col-md-2 ">
+        <div class="title">
+           
+            <h2 class="private">Register</h2>
         </div>
-
+        <form name="form" (ngSubmit)="f.form.valid && register()" #f="ngForm" novalidate>
+            <div class="form-group" [ngClass]="{ 'has-error': (f.submitted && !email.valid && email.errors)}">
+                <label for="email">Email</label>
+                <input type="text" class="form-control" name="email" [(ngModel)]="model.email" #email="ngModel" required pattern="^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$"/>
+                <div *ngIf="f.submitted && email.errors && email.errors.required" class="help-block">Email Name is required</div>
+                
+                <div *ngIf="f.submitted && email.errors && email.errors.pattern"  class="help-block">
+                    Email is invalid
+                </div>
+            </div>
+            <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !password.valid }">
+                <label for="password">Password</label>
+                <input type="password" class="form-control" name="password" [(ngModel)]="model.password" #password="ngModel" required />
+                <div *ngIf="f.submitted && !password.valid" class="help-block">Password is required</div>
+            </div>
+            <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !confirm_password.valid }">
+                <label for="confirm_password">Confirm Password</label>
+                <input type="password" class="form-control" name="confirm_password" [(ngModel)]="model.confirm_password" #confirm_password="ngModel" required />
+                <div *ngIf="f.submitted && !confirm_password.valid" class="help-block">Confirm Your Password</div>
+            </div>
+            <div class="form-group">
+                <button [disabled]="loading" class="btn btn-primary">Register</button>
+                <img *ngIf="loading" src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==" />
+                <a [routerLink]="['/login']" class="btn btn-link">Cancel</a>
+            </div>
+            <div class="private">
+                <h1> <img src="../../images/logo.png" class="app-logo" /> HowMuchApp</h1>
+                <p>©2016 All Rights Reserved. HowMuchApp. Vitali Sashko</p>
+            </div>
+        </form>
     </div>
 </div>

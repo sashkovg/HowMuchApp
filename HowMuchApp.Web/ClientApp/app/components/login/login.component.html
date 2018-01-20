@@ -1,42 +1,37 @@
-﻿<div class="login-page" [@routerTransition]>
-   
-    <div class="row justify-content-md-center">
-        <div class="col-md-4">
-            <img src="../../images/logo.png" width="100" class="user-avatar" />
-            <h3>HowMuch. Авторизация</h3>
-            <div class="row justify-content-md-center" style="margin-top:15px">
-                <div class="col-md-10 new-user-alert">
-                    <div *ngIf="brandNew" class="alert alert-success" role="alert">
-                        <strong>Регистрация прошла успешно!</strong> Пожалуйста, войдите в приложение, используя Email зарегистрированного аккаунта
-                    </div>
+﻿<div class="row justify-content-md-center" [@routerTransition]>
+    <div class="col-md-2 ">
+        <div class="title">
+
+            <h2 class="private">Login</h2>
+
+            <div class="new-user-alert">
+                <div *ngIf="brandNew" class="alert alert-success" role="alert">
+                    <strong>Регистрация прошла успешно!</strong> Пожалуйста, войдите в приложение, используя Email зарегистрированного аккаунта
                 </div>
             </div>
-            <form #f="ngForm" role="form" [formGroup]='loginForm' novalidate (ngSubmit)="login(loginForm)" autocomplete=off>
-                <div class="form-content">
-                    <div class="form-group">
-                        <input type="text" name="email" class="form-control input-underline input-lg" id="email" placeholder="Email" formControlName='email'>
-                        <div *ngIf="!loginForm.controls['email'].valid && (!loginForm.controls['email'].pristine || f.submitted)">
-                            <small *ngIf="loginForm.controls['email'].hasError('required')" class="error">
-                                Введите Ваш Email.
-                            </small>
-                            <small *ngIf="loginForm.controls['email'].hasError('email') && !loginForm.controls['email'].pristine && !loginForm.controls['email'].hasError('required')" class="error">
-                                Формат введенного Email не соответствует маске (например, user@gmail.com)
-                            </small>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <input type="password" name="password" class="form-control input-underline input-lg"  id="password" placeholder="Пароль" formControlName='password'>
-                        <div *ngIf="!loginForm.controls['password'].valid && (!loginForm.controls['password'].pristine || f.submitted)">
-                            <small *ngIf="loginForm.controls['password'].hasError('required')" class="error">
-                                Введите Ваш пароль.
-                            </small>
-                        </div>
-                    </div>
-                </div>
-                <button class="btn rounded-btn" type="submit"> Войти </button>
-                &nbsp;
-                <a class="btn rounded-btn" [routerLink]="['/signup']">Регистрация</a>
-            </form>
         </div>
+        <form name="form" (ngSubmit)="f.form.valid && login()" #f="ngForm" novalidate>
+            <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !email.valid }">
+                <label for="email">Email</label>
+                <input type="text" class="form-control" name="email" [(ngModel)]="model.email" #email="ngModel" required />
+                <div *ngIf="f.submitted && !email.valid" class="help-block">Email is required</div>
+            </div>
+
+            <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !password.valid }">
+                <label for="password">Password</label>
+                <input type="password" class="form-control" name="password" [(ngModel)]="model.password" #password="ngModel" required />
+                <div *ngIf="f.submitted && !password.valid" class="help-block">Password is required</div>
+            </div>
+            <div class="form-group">
+                <button [disabled]="loading" class="btn btn-primary">Login</button>
+                <img *ngIf="loading" src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==" />
+                <a [routerLink]="['/signup']" class="btn btn-link">Register</a>
+            </div>
+            <div class="private">
+                <h1> <img src="../../images/logo.png" class="app-logo" /> HowMuchApp</h1>
+                <p>©2016 All Rights Reserved. HowMuchApp. Vitali Sashko</p>
+            </div>
+        </form>
     </div>
-</div>s
+</div>
+

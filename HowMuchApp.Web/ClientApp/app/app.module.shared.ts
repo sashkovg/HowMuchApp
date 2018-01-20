@@ -5,37 +5,31 @@ import { HttpModule } from '@angular/http';
 import { RouterModule, Routes } from '@angular/router';
 
 import { AppComponent } from './components/app/app.component';
-import { NavMenuComponent } from './components/navmenu/navmenu.component';
-import { HomeComponent } from './components/home/home.component';
-import { FetchDataComponent } from './components/fetchdata/fetchdata.component';
-import { CounterComponent } from './components/counter/counter.component';
+
 
 import { PublicModule } from './components/layout/public/public.module'
 import { PublicComponent, PUBLIC_ROUTES } from './components/layout/public';
+
+import { PrivateModule } from './components/layout/private/private.module'
+import { PrivateComponent, PRIVATE_ROUTES } from './components/layout/private';
 
 //Servises
 import { UserService } from './shared/services/user.service';
 import { ConfigService } from './shared/services/config.service';
 
 const routes: Routes = [
-    { path: '', redirectTo: 'login', pathMatch: 'full' },
     { path: '', component: PublicComponent, data: { title: 'Public Views' }, children: PUBLIC_ROUTES },
-    { path: '**', redirectTo: 'login' }
+    { path: '', component: PrivateComponent, data: { title: 'Private Views' }, children: PRIVATE_ROUTES }
 ];
 
 @NgModule({
-    declarations: [
-        AppComponent,
-        NavMenuComponent,
-        CounterComponent,
-        FetchDataComponent,
-        HomeComponent
-    ],
+    declarations: [AppComponent],
     imports: [
         CommonModule,
         HttpModule,
         FormsModule,
         PublicModule,
+        PrivateModule,
         ReactiveFormsModule,
         RouterModule.forRoot(routes)
     ],

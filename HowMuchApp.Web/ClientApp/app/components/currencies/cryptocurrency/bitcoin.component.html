@@ -1,0 +1,10 @@
+<span class="count_top"><i class="glyphicon glyphicon-bitcoin"></i> BITCOIN</span>
+<div *ngIf="loading">
+    <spinner></spinner>
+</div>
+<div *ngIf="!loading" >
+    <div class="count">{{exchangeCurrentValue}}<i class="glyphicon glyphicon-usd" aria-hidden="true"></i></div>
+    <span class="count_bottom"><i [ngClass]="{ 'red glyphicon glyphicon-triangle-bottom': delta < 0,'green glyphicon glyphicon-triangle-top': delta > 0}"></i><i [ngClass]="{ 'red': delta < 0,'green': delta > 0}" >{{delta}}</i> From last day</span>
+</div>
+
+

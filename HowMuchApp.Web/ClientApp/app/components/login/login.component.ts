@@ -1,5 +1,5 @@
 ﻿import { Component, OnInit } from '@angular/core';
-import { Router, ActivatedRoute} from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { routerTransition } from '../../router.animations';
 import { UserSignIn } from '../../models/UserSignIn.interface';
 import { UserService } from '../../shared/services/user.service';
@@ -15,46 +15,39 @@ import { Subscription } from 'rxjs';
 
 export class LoginComponent implements OnInit {
 
-    loginForm: FormGroup;
+    model: UserSignIn = {
+        email: '',
+        password: ''
+    };
+    loading: boolean = false;
+    subscription: Subscription;
     brandNew: boolean;
     errors: object = {};
-    isRequesting: boolean = false;
-    submitted: boolean = false;
-    subscription: Subscription;
 
-    constructor(private userService: UserService, public router: Router, public fb: FormBuilder, private activatedRoute: ActivatedRoute) {
-        this.loginForm = this.fb.group({
-            email: ['', Validators.compose([Validators.required, Validators.email])],
-            password: ['', [Validators.required]]
-        })  
-    }
-   
+    constructor(
+        private activatedRoute: ActivatedRoute,
+        private router: Router, private userService: UserService
+    ) { }
 
     ngOnInit() {
-       
         // subscribe to router event
         this.subscription = this.activatedRoute.queryParams.subscribe(
             (param: any) => {
                 this.brandNew = param['brandNew'];
-                this.loginForm.patchValue({
-                    email: param['email'],
-                   
-                });
-            });      
-    }
+                this.model.email = param['email'];
+            });
 
+    }
     ngOnDestroy() {
         // prevent memory leak by unsubscribing
         this.subscription.unsubscribe();
     }
 
-    login({ value, valid }: { value: UserSignIn, valid: boolean }) {
-        this.submitted = true;
-        this.isRequesting = true;
+    login() {
+        this.loading = true;
         this.errors = {};
-        if (valid) {
-            this.userService.login(value.email, value.password)
-                .finally(() => this.isRequesting = false)
+            this.userService.login(this.model.email, this.model.password)
+                .finally(() => this.loading = false)
                 .subscribe(
                 result => {
                     if (result) {
@@ -63,5 +56,4 @@ export class LoginComponent implements OnInit {
                 },
                 error => this.errors = error);
         }
-    }
 }
