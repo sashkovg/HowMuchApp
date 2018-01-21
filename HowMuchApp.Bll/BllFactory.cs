@@ -10,12 +10,13 @@ namespace HowMuchApp.Bll
     public interface IBllFactory
     {
         IAccountBll AccountBll { get; }
+        ICurrencyBll CurrencyBll { get; }
     }
 
     public class BllFactory : IBllFactory
     {
         private IAccountBll _accountBll;
-
+        private ICurrencyBll _currencyBll;
 
 
         private IDalFactory _dalFactory;
@@ -29,5 +30,7 @@ namespace HowMuchApp.Bll
         }
 
         public IAccountBll AccountBll => _accountBll ?? (_accountBll = new AccountBll( _mapper, _userManager, _dalFactory));
+
+        public ICurrencyBll CurrencyBll => _currencyBll ?? (_currencyBll = new CurrencyBll(_mapper, _dalFactory));
     }
 }

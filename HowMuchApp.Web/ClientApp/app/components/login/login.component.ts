@@ -46,14 +46,14 @@ export class LoginComponent implements OnInit {
     login() {
         this.loading = true;
         this.errors = {};
-            this.userService.login(this.model.email, this.model.password)
-                .finally(() => this.loading = false)
-                .subscribe(
-                result => {
-                    if (result) {
-                        this.router.navigate(['/home']);
-                    }
-                },
-                error => this.errors = error);
-        }
+        this.userService.login(this.model.email, this.model.password)
+            .finally(() => this.loading = false)
+            .subscribe(
+            result => {
+                if (result) {
+                    this.router.navigate(['/home']);
+                }
+            },
+            error => this.errors = error);
+    }
 }

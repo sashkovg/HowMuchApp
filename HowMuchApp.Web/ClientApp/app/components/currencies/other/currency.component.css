@@ -15,9 +15,7 @@
         font-size: 13px;
     }
 }
-.count i {
-    font-size: 30px;
-}
+
 
 .red {
     color: #E74C3C;
@@ -29,6 +27,10 @@
 
 .blue {
     color: #3498DB;
+}
+
+.scale{
+    font-size:12px;
 }
 
 

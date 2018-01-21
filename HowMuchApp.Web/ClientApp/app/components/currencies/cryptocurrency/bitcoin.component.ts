@@ -1,5 +1,5 @@
 import { Component, ViewEncapsulation } from '@angular/core';
-import { CriptoCurrenciesService } from '../../currencies/criptocurrencies.service';
+import { CurrenciesService } from '../../currencies/currencies.service';
 import { SpinnerComponent } from '../../loaders/spinner/spinner.component'
 
 @Component({
@@ -14,7 +14,7 @@ export class BitcoinComponent {
     delta: string;
     timer: any;
 
-    constructor(private criptoService: CriptoCurrenciesService) {
+    constructor(private criptoService: CurrenciesService) {
         this.getBitcoinExchangeValue();
     }
 

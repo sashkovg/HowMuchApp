@@ -3,15 +3,19 @@ import { Http, Response, Headers, RequestOptions } from '@angular/http';
 import { Observable } from 'rxjs/Rx';
 import { BehaviorSubject } from 'rxjs/Rx';
 import { BaseService } from "../../shared/services/base.service";
+import { ConfigService } from '../../shared/services/config.service';
 
 @Injectable()
 
-export class CriptoCurrenciesService extends BaseService {
+export class CurrenciesService extends BaseService {
     //https://www.coindesk.com/price/
-    exchangeTodayUrl: string = 'https://api.coindesk.com/v1/bpi/currentprice.json';
-    exchangeYesterdayUrl: string = 'https://api.coindesk.com/v1/bpi/historical/close.json?for=yesterday';
-    constructor(private http: Http) {
-        super();
+    exchangeBitcoinTodayUrl: string = 'https://api.coindesk.com/v1/bpi/currentprice.json';
+    exchangeBitcoinYesterdayUrl: string = 'https://api.coindesk.com/v1/bpi/historical/close.json?for=yesterday';
+    baseUrl: string;
+
+    constructor(private http: Http, private configService: ConfigService) {
+        super()
+        this.baseUrl = configService.getApiURI();
     }
 
     getBitcoinExchangeRates({ currency, isCurrent }: { currency: string, isCurrent: boolean }): Observable<number>{
@@ -19,7 +23,7 @@ export class CriptoCurrenciesService extends BaseService {
         headers.append('Content-Type', 'application/json');
 
         return this.http
-            .get(isCurrent ? this.exchangeTodayUrl : this.exchangeYesterdayUrl)
+            .get(isCurrent ? this.exchangeBitcoinTodayUrl : this.exchangeBitcoinYesterdayUrl)
             .map(res => {
                 let value = res.json();
                 if (value) {
@@ -30,6 +34,20 @@ export class CriptoCurrenciesService extends BaseService {
                     }
                 }
                 return null;
+            })
+            .catch(this.handleError);
+    }
+
+    getCurrencyExhangeRates(currency: string, dateOn: Date) {
+        let headers = new Headers();
+        headers.append('Content-Type', 'application/json');
+        return this.http
+            .post(
+            this.baseUrl + '/Currencies/GetExhangeRates',
+            JSON.stringify({ currency, dateOn }), { headers }
+            )
+            .map(res => {
+                return res.json();
             })
             .catch(this.handleError);
     }

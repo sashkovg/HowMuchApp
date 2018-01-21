@@ -25,6 +25,10 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Compile Remove="Model\ExchangeRateViewModel.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\HowMuchApp.Bll\HowMuchApp.Bll.csproj" />
     <ProjectReference Include="..\HowMuchApp.Model\HowMuchApp.Model.csproj" />
   </ItemGroup>

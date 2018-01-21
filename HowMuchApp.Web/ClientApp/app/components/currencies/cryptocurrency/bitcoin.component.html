@@ -4,7 +4,7 @@
 </div>
 <div *ngIf="!loading" >
     <div class="count">{{exchangeCurrentValue}}<i class="glyphicon glyphicon-usd" aria-hidden="true"></i></div>
-    <span class="count_bottom"><i [ngClass]="{ 'red glyphicon glyphicon-triangle-bottom': delta < 0,'green glyphicon glyphicon-triangle-top': delta > 0}"></i><i [ngClass]="{ 'red': delta < 0,'green': delta > 0}" >{{delta}}</i> From last day</span>
+    <span class="count_bottom"><i [ngClass]="[delta < 0 ? 'red glyphicon glyphicon-triangle-bottom':'green glyphicon glyphicon-triangle-top']"></i><i [ngClass]="{ 'red': delta < 0,'green': delta > 0}" >{{delta}}</i> From last day</span>
 </div>
 
 

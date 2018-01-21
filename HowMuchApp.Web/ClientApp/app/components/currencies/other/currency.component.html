@@ -1,0 +1,10 @@
+<span class="count_top"><i [ngClass]="symbol"></i> {{code}}</span> <span style="float:right" *ngIf="dateOfRate"> <i class="glyphicon glyphicon-calendar"></i> {{dateOfRate}}</span>
+<div *ngIf="loading">
+    <spinner></spinner>
+</div>
+<div *ngIf="!loading" >
+       <div class="count">{{exchangeCurrentValue}} <span class="scale" *ngIf="scale > 1"> / {{scale}}</span></div>
+    <span class="count_bottom"><i [ngClass]="[delta < 0 ? 'red glyphicon glyphicon-triangle-bottom':'green glyphicon glyphicon-triangle-top']"></i><i [ngClass]="{ 'red': delta < 0,'green': delta > 0}"> {{delta}}</i> From last day</span>
+</div>
+
+

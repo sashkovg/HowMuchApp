@@ -4,7 +4,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HomeComponent } from './home.component';
 import { Routes, RouterModule } from '@angular/router';
 import { BitcoinComponent } from '../../components/currencies/cryptocurrency/bitcoin.component';
-import { CriptoCurrenciesService } from '../../components/currencies/criptocurrencies.service';
+import { CurrencyComponent } from '../../components/currencies/other/currency.component';
+import { CurrenciesService } from '../../components/currencies/currencies.service';
 import { SpinnerComponent } from '../../components/loaders/spinner/spinner.component'
 
 @NgModule({
@@ -15,7 +16,7 @@ import { SpinnerComponent } from '../../components/loaders/spinner/spinner.compo
         RouterModule
        
     ],
-    declarations: [HomeComponent, BitcoinComponent, SpinnerComponent],
-    providers: [CriptoCurrenciesService]
+    declarations: [HomeComponent, BitcoinComponent, SpinnerComponent, CurrencyComponent],
+    providers: [CurrenciesService]
 })
 export class HomeModule {}

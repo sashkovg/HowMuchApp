@@ -61,6 +61,7 @@ export class UserService extends BaseService {
             .catch(this.handleError);
     }
 
+
     logout() {
         //localStorage.removeItem('auth_token');
         this.loggedIn = false;
