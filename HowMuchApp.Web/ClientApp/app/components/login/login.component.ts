@@ -3,7 +3,6 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { routerTransition } from '../../router.animations';
 import { UserSignIn } from '../../models/UserSignIn.interface';
 import { UserService } from '../../shared/services/user.service';
-import { FormGroup, FormControl, Validators, ValidatorFn, AbstractControl, FormBuilder, FormControlName, NgForm } from '@angular/forms';
 import { Subscription } from 'rxjs';
 
 @Component({

@@ -11,7 +11,7 @@ using System;
 namespace HowMuchApp.Web.Migrations
 {
     [DbContext(typeof(ApplicationContext))]
-    [Migration("20180116160114_initial")]
+    [Migration("20180122185816_initial")]
     partial class initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -21,20 +21,22 @@ namespace HowMuchApp.Web.Migrations
                 .HasAnnotation("ProductVersion", "2.0.1-rtm-125")
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-            modelBuilder.Entity("HowMuchApp.Model.EF.Customer", b =>
+            modelBuilder.Entity("HowMuchApp.Model.EF.Account", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<string>("Gender");
+                    b.Property<DateTime>("Date_create");
 
-                    b.Property<string>("Locale");
+                    b.Property<DateTime>("Date_delete");
 
-                    b.Property<string>("Location");
+                    b.Property<string>("Description");
+
+                    b.Property<string>("Type");
 
                     b.HasKey("Id");
 
-                    b.ToTable("Customers");
+                    b.ToTable("Accounts");
                 });
 
             modelBuilder.Entity("HowMuchApp.Model.Models.AppUser", b =>

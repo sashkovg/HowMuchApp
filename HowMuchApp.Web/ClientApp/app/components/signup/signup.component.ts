@@ -3,7 +3,6 @@ import { UserService } from '../../shared/services/user.service';
 import { routerTransition } from '../../router.animations';
 import { UserSignUp } from '../../models/UserSignUp.interface';
 import { Router } from '@angular/router';
-import { FormGroup, FormControl, Validators, ValidatorFn, AbstractControl, FormBuilder, FormControlName, NgForm } from '@angular/forms';
 import { KeysPipe } from '../../shared/pipes/keys.pipes';
 
 @Component({
@@ -13,7 +12,7 @@ import { KeysPipe } from '../../shared/pipes/keys.pipes';
     animations: [routerTransition()]
 })
 export class SignupComponent implements OnInit {
-    constructor(private userService: UserService, public router: Router, public fb: FormBuilder) {
+    constructor(private userService: UserService, public router: Router) {
 
     }
     model: any = {};
