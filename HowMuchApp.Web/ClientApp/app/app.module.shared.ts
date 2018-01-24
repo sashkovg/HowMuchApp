@@ -32,6 +32,7 @@ const routes: Routes = [
         PrivateModule,
         ReactiveFormsModule,
         RouterModule.forRoot(routes)
+        
     ],
     exports: [RouterModule],
     providers: [UserService, ConfigService]

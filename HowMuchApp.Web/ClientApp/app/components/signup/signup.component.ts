@@ -1,9 +1,10 @@
-﻿import { Component, OnInit } from '@angular/core';
+﻿import { Component, OnInit, Inject, forwardRef } from '@angular/core';
 import { UserService } from '../../shared/services/user.service';
 import { routerTransition } from '../../router.animations';
 import { UserSignUp } from '../../models/UserSignUp.interface';
 import { Router } from '@angular/router';
 import { KeysPipe } from '../../shared/pipes/keys.pipes';
+import { AppComponent } from '../app/app.component';
 
 @Component({
     selector: 'app-signup',
@@ -12,13 +13,14 @@ import { KeysPipe } from '../../shared/pipes/keys.pipes';
     animations: [routerTransition()]
 })
 export class SignupComponent implements OnInit {
-    constructor(private userService: UserService, public router: Router) {
-
+    private appParent: AppComponent;
+    constructor(private userService: UserService, public router: Router, @Inject(forwardRef(() => AppComponent)) app: AppComponent /* get variable from parent's component*/ ) {
+        this.appParent = app;
     }
     model: any = {};
     errors: object = {};
     loading: boolean = false;
-
+   
     ngOnInit() {
     }
 

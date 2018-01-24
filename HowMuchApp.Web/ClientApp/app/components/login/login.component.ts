@@ -1,9 +1,11 @@
-﻿import { Component, OnInit } from '@angular/core';
+﻿import { Component, OnInit, Inject, forwardRef } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { routerTransition } from '../../router.animations';
 import { UserSignIn } from '../../models/UserSignIn.interface';
 import { UserService } from '../../shared/services/user.service';
 import { Subscription } from 'rxjs';
+
+import { AppComponent } from '../app/app.component'
 
 @Component({
     selector: 'app-login',
@@ -22,11 +24,14 @@ export class LoginComponent implements OnInit {
     subscription: Subscription;
     brandNew: boolean;
     errors: object = {};
+    private appParent: AppComponent;
 
     constructor(
         private activatedRoute: ActivatedRoute,
-        private router: Router, private userService: UserService
-    ) { }
+        private router: Router, private userService: UserService,
+        @Inject(forwardRef(() => AppComponent)) app: AppComponent // get variable from parent's component 
+    ) {
+        this.appParent = app}
 
     ngOnInit() {
         // subscribe to router event
@@ -35,7 +40,7 @@ export class LoginComponent implements OnInit {
                 this.brandNew = param['brandNew'];
                 this.model.email = param['email'];
             });
-
+        
     }
     ngOnDestroy() {
         // prevent memory leak by unsubscribing

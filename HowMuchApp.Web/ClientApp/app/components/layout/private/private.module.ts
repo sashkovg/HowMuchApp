@@ -7,7 +7,7 @@ import { NavMenuComponent } from '../../navmenu/navmenu.component';
 import { Routes, RouterModule } from '@angular/router';
 import { UserService } from '../../../shared/services/user.service';
 import { HomeModule } from '../../home/home.module'
-
+import { GridModule } from '@progress/kendo-angular-grid';
 
 @NgModule({
     imports: [
@@ -15,7 +15,8 @@ import { HomeModule } from '../../home/home.module'
         ReactiveFormsModule,
         FormsModule,
         RouterModule,
-        HomeModule 
+        HomeModule,
+        GridModule
     ],
     declarations: [PrivateComponent, NavMenuComponent, TransactionComponent],
     providers: [UserService]
