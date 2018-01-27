@@ -10,7 +10,9 @@ namespace HowMuchApp.Model.EF
         public ApplicationContext(DbContextOptions<ApplicationContext> options)
             : base(options)
         {
+            
         }
+        public ApplicationContext() : base() { }
 
         public DbSet<Account> Accounts { get; set; }
         public DbSet<User_Account> User_Accounts { get; set; }
@@ -23,7 +25,7 @@ namespace HowMuchApp.Model.EF
         public string Type { get; set; }
         public string Description { get; set; }
         public DateTime Date_create { get; set; }
-        public DateTime Date_delete { get; set; }
+        public DateTime ? Date_delete { get; set; }
     }
 
     public class User_Account
@@ -34,7 +36,7 @@ namespace HowMuchApp.Model.EF
         public AppUser Identity { get; set; }  // navigation property
         public Account Account { get; set; }  // navigation property
         public DateTime Date_create { get; set; }
-        public DateTime Date_delete { get; set; }
+        public DateTime ? Date_delete { get; set; }
     }
 
     public class Transaction
@@ -43,7 +45,7 @@ namespace HowMuchApp.Model.EF
         public int User_AccountId { get; set; }
         public User_Account User_Account { get; set; }  // navigation property
         public DateTime Date_create { get; set; }
-        public DateTime Date_delete { get; set; }
+        public DateTime ? Date_delete { get; set; }
     }
 
 

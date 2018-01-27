@@ -22,6 +22,7 @@ using Microsoft.Extensions.DependencyInjection.Extensions;
 using HowMuchApp.Web.Model;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using HowMuchApp.Web.Helpers;
+using HowMuchApp.Dal.GenericRepository;
 
 namespace HowMuchApp_Web
 {

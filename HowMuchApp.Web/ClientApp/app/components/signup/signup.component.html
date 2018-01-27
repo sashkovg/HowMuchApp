@@ -1,16 +1,16 @@
 ﻿<div class="row justify-content-md-center" [@routerTransition]>
     <div class="col-md-2 ">
         <div class="title">
-           
             <h2 class="private">Register</h2>
         </div>
         <form name="form" (ngSubmit)="f.form.valid && register()" #f="ngForm" novalidate>
             <div class="form-group" [ngClass]="{ 'has-error': (f.submitted && !email.valid && email.errors)}">
                 <label for="email">Email</label>
-                <input type="text" class="form-control" name="email" [(ngModel)]="model.email" #email="ngModel" required pattern="^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$"/>
-                <div *ngIf="f.submitted && email.errors && email.errors.required" class="help-block">Email Name is required</div>
-                
-                <div *ngIf="f.submitted && email.errors && email.errors.pattern"  class="help-block">
+                <input type="email" class="form-control" name="email" [(ngModel)]="model.email" #email="ngModel" required email>
+                <div *ngIf="f.submitted && email.errors && email.errors.required" class="help-block">
+                    Email is required
+                </div>
+                <div *ngIf="f.submitted && email.errors && !email.errors.required && email.errors.email" class="help-block">
                     Email is invalid
                 </div>
             </div>

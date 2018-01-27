@@ -5,6 +5,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="GenericRepository\DbFactory.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\HowMuchApp.Model\HowMuchApp.Model.csproj" />
   </ItemGroup>
 
